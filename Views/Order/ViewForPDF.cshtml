@@ -1,0 +1,108 @@
+﻿@model List<ShoppingCart.Entity.OrderModel>
+
+@{
+    ViewBag.Title = "ViewForPDF";
+    Layout = null;
+}
+@{
+    var Total = 0;
+    var TotalPayment = 0;
+    var OrderId = 0;
+}
+<script src="~/Scripts/bootstrap.min.js"></script>
+<link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+<h2>Order Information</h2>
+<table class="table table-bordered table-hover">
+    <thead>
+        <tr>
+            <td class="text-left" colspan="3">Order Details</td>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var order in Model)
+            {
+                if (OrderId != order.OrderId)
+                {
+                    { OrderId = order.OrderId; }
+                <tr>
+                    <td class="text-left">
+                        <b>Order ID:</b> #@order.OrderId <br>
+                        <b>Date Added:</b>@order.CreatedOn
+                    </td>
+
+                    <td class="text-left">
+                        @if (!order.CardorCashPayment)
+                        {
+                            <b>Payment Method:</b><p>Cash On Delivery </p> <br>
+                        }
+                        else
+                        {
+                            <b>Payment Method:</b><p>Card Payment </p> <br>
+                            string stCreditCard = "XXXX-XXXX-XXXX-" + order.CardNumber.Substring(order.CardNumber.Length - 4, 4);
+                            <b>Card Number : </b><br> @stCreditCard
+
+                        }
+                        @*<b>Shipping Method:</b> Flat Shipping Rate*@
+                    </td>
+                    <td class="text-left">
+                        <b>Comment:</b>  <br>
+                        @order.Comment
+                    </td>
+                </tr>
+            }
+
+        }
+
+    </tbody>
+</table>
+<h2>Address</h2>
+@{
+    Html.RenderAction("UserAddress", "Order");
+}
+
+<h2>Products</h2>
+<div class="table-responsive">
+    <table class="table table-bordered table-hover">
+        <thead>
+
+            <tr>
+                <td class="text-left">Product Image</td>
+                <td class="text-left">Product Name</td>
+                <td class="text-right">Quantity</td>
+                <td class="text-right">Price</td>
+                <td class="text-right">Total</td>
+                @*<td style="width: 20px;"></td>*@
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var product in Model)
+            {
+                {
+                    Total = @product.Quantity * Convert.ToInt32(@product.Price);
+                    TotalPayment = Convert.ToInt32(@product.TotalPayment);
+                }
+                <tr>
+                    <td class="text-center"><img src="https://plankteradmin.azurewebsites.net/Uploded_Images/Product/@product.ProductImage" height="50" width="50" /> </td>
+                    <td class="text-left">
+                        @product.ProductName <br>
+
+                    </td>
+                    <td class="text-right">@product.Quantity</td>
+                    <td class="text-right">@product.Price</td>
+                    <td class="text-right">@Total</td>
+
+                </tr>
+            }
+
+        </tbody>
+        <tfoot>
+
+            <tr class="text-right">
+                <td colspan="4"></td>
+                <td class="text-right"><b>Total Rs.</b>@TotalPayment</td>
+                @*<td class="text-right">Rs.@TotalPayment</td>*@
+                @*<td></td>*@
+            </tr>
+        </tfoot>
+    </table>
+</div>

@@ -1,0 +1,66 @@
+﻿body {
+}
+.leftcolumn
+{
+    display:inline-block;
+    float:left;
+    width:150px;
+}
+.rightcolumn
+{
+    display:inline-block;
+    width:150px;
+}
+.validationMessage
+{
+    color:red;
+    display:inline-block;
+}
+.star
+{
+    color:red;
+}
+.insertButton
+{
+   height:34px;
+}
+.saveBack
+{
+    margin-top:10px;
+}
+.fileUpload
+{
+
+    color:red;
+}
+.DivHeight
+{
+    height:400px;
+}
+.DivWidth
+{
+    width:800px;
+}
+.first
+{
+    display:inline-block;
+    width:200px;
+}
+.ImageDiv
+{
+    display:inline-block;
+    float:right;
+    margin-right:370px;
+}
+.parent
+{
+    width:500px;
+}
+#Button:focus
+{
+    border:solid red 1px;
+}
+.form-control
+{
+    width:200px;
+}

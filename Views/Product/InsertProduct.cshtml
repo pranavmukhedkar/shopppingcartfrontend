@@ -1,0 +1,47 @@
+﻿@model ShoppingCart.Entity.ProductModel
+@{
+    ViewBag.Title = "InsertProduct";
+}
+<script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.2.0.min.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+<link href="~/Content/MyCss.css" rel="stylesheet" />
+<h3>Insert Product</h3><br />
+<div>
+    @using (@Html.BeginForm("InsertProduct", "Product", FormMethod.Post, new { encType = "multipart/form-data" }))
+    {
+        <div class="DivHeight">
+            <div class="leftcolumn">
+                @Html.LabelFor(x => x.ProductName)<span class="star"><b>*</b></span>:<br /><br />
+                @Html.LabelFor(x => x.ProductImage)<span class="star"><b>*</b></span>:<br /><br />
+                @Html.LabelFor(x => x.ProductDescription):<br /><br /><br /><br />
+                @Html.LabelFor(x => x.IsActive):<br /><br />
+                @Html.LabelFor(x => x.Price):
+            </div>
+            <div class="rightcolumn">
+                <div class="parent">
+                    <div style="display:inline-block">@Html.TextBoxFor(x => x.ProductName, new {@class="form-control", @maxlength = "50", tabindex = "1" })</div>
+                    <div class="validationMessage"> @Html.ValidationMessageFor(x => x.ProductName)</div>
+                </div><br />
+                <div class="parent">
+                    <div style="display:inline-block"><input type="file"  name="file" id="file" required />@*@Html.TextBoxFor(x => x.file, new { id = "Button", Type = "file", Name = "file", tabindex = "2" })*@</div>
+                    <div class="validationMessage">@TempData["ImageErrorMassage"]</div>
+                    @* <input type="file" name="file" id="file"  required/><br />*@
+                    @Html.HiddenFor(x => x.CategoryId)
+                </div><br />
+                <div class="parent">
+                    <div style="display:inline-block">@Html.TextAreaFor(x => x.ProductDescription, new { @class = "form-control", tabindex = "3" })</div>
+                    <div class="validationMessage"> @Html.ValidationMessageFor(x => x.ProductDescription)</div>
+                </div>
+                <div class="col-md-offset-2 col-md-10">
+                     @Html.CheckBoxFor(x => x.IsActive, new { id = "Button", tabindex = "4" ,@class = "form-control" })
+                </div>
+                @Html.TextBoxFor(x => x.Price, new { tabindex = "5", @class = "form-control" })<br />
+
+                <input type="submit" id="Button"   value ="Save" tabindex="6" />
+                <input type="button" id="Button"  value="Back" tabindex="7" onclick="@("location.href='"+Url.Action("Index","Product",new {id=@Model.CategoryId })+"'")"
+            </div>
+        </div>
+    }
+</div>
+

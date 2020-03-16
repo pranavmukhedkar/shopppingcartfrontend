@@ -1,0 +1,222 @@
+﻿@model ShoppingCart.Entity.UserAdminModel
+@{
+    ViewBag.Title = "UpdateUserAdmin";
+}
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<link href="~/Content/UserAdminCss.css" rel="stylesheet" />
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+<style>
+    .btn-xs {
+        width: 69px;
+    }
+</style>
+<h4>Update User Admin</h4>
+<div class="ParentDiv">
+    @using (@Html.BeginForm())
+    {
+        <div class="ParentDiv1" style="display:inline-block">
+            @*<div class="DivHeight">
+                <div class="LeftColumn1" style="display:inline-block">
+                    @Html.LabelFor(x => x.RoleId)<span class="star">*</span>:
+                </div>
+                <div class="RightColumn1" style="display:inline-block">
+                    @Html.DropDownList("RoleId", ViewData["Role"] as List<SelectListItem>, new { tabindex = "1", @class = "form-control" })
+                </div>
+            </div>*@
+            <div class="DivHeight">
+                <div class="LeftColumn1" style="display:inline-block">
+                    @Html.LabelFor(x => x.FirstName)<span class="star">*</span>:<br /><br />
+                </div>
+                <div class="RightColumn1" style="display:inline-block">
+                    @Html.TextBoxFor(x => x.FirstName, new { @maxlength = "20", tabindex = "2", @class = "form-control" })
+                    <p class="text-danger">@Html.ValidationMessageFor(x => x.FirstName)</p>
+                </div>
+            </div><br />
+            <div class="DivHeight">
+                <div class="LeftColumn1" style="display:inline-block">
+                    @Html.LabelFor(x => x.LastName)<span class="star">*</span>:<br /><br />
+                </div>
+                <div class="RightColumn1" style="display:inline-block">
+
+                    @Html.TextBoxFor(x => x.LastName, new { @maxlength = "20", tabindex = "3", @class = "form-control" })
+                    <p class="text-danger">@Html.ValidationMessageFor(x => x.LastName)</p>
+                </div>
+            </div><br />
+            <div class="DivHeight">
+                <div class="LeftColumn1" style="display:inline-block">
+                    @Html.LabelFor(x => x.Email)<span class="star">*</span>:<br /><br />
+                </div>
+                <div class="RightColumn1" style="display:inline-block">
+                    @Html.TextBoxFor(x => x.Email, new { @maxlength = "50", @class = "form-control",@readonly="readonly", @data_val = "false" })
+                    <p class="text-danger">@Html.ValidationMessageFor(x => x.Email)</p>
+                </div>
+            </div><br />
+            <div class="DivHeight">
+                <div class="LeftColumn1" style="display:inline-block">
+                    @Html.LabelFor(x => x.PhoneNumber)<span class="star">*</span>:<br /><br />
+                </div>
+                <div class="RightColumn1" style="display:inline-block">
+                    @Html.TextBoxFor(x => x.PhoneNumber, new { @minlength = "10", @maxlength = "10", @class = "form-control" })
+                    <p class="text-danger">@Html.ValidationMessageFor(x => x.PhoneNumber)</p>
+                </div>
+            </div><br />
+
+            <div class="DivHeight">
+                <div class="LeftColumn1" style="display:inline-block">
+                    @Html.LabelFor(x => x.IsActive):<br />
+                </div>
+                <div class="RightColumn1" style="display:inline-block">
+                    @Html.CheckBoxFor(x => x.IsActive, new { @class = "form-control" })
+                    <p class="text-danger">@Html.ValidationMessageFor(x => x.IsActive)</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="ParentDiv2" style="display:inline-block">
+            <div class="DivHeight">
+                <div class="LeftColumn1" style="display:inline-block">
+                    @Html.LabelFor(x => x.Address1)<span class="star">*</span>:
+                </div>
+                <div class="RightColumn1" style="display:inline-block">
+                    @Html.TextAreaFor(x => x.Address1, new { @class = "form-control" })<br />
+                    <p class="text-danger">@Html.ValidationMessageFor(x => x.Address1)</p>
+                </div>
+            </div><br /><br />
+            <div class="DivHeight">
+                <div class="LeftColumn1" style="display:inline-block">
+                    @Html.LabelFor(x => x.Address2)<span class="star">*</span>:
+                </div>
+                <div class="RightColumn1" style="display:inline-block">
+                    @Html.TextAreaFor(x => x.Address2, new { @class = "form-control" })<br />
+                    <p class="text-danger">@Html.ValidationMessageFor(x => x.Address2)</p>
+                </div>
+            </div><br /><br />
+            <div class="DivHeight">
+                <div class="LeftColumn1" style="display:inline-block">
+                    @Html.LabelFor(x => x.CountryId)<span class="star">*</span>:<br /><br />
+                </div>
+                <div class="RightColumn1" style="display:inline-block">
+                    @Html.DropDownListFor(x => x.CountryId, new SelectList((System.Collections.IEnumerable)ViewData["CountryList"], "CountryId", "CountryName"), "Select Country", new { @id = "ddlCountry", @class = "form-control" })
+                    @*@Html.DropDownListFor(x => x.CountryId, new List<SelectListItem>(), "Select Country", new { @id = "ddlCountry", @class = "form-control" })*@
+                    <p class="text-danger">@Html.ValidationMessageFor(x => x.CountryId)</p>
+                </div>
+            </div><br />
+            <div class="DivHeight">
+                <div class="LeftColumn1" style="display:inline-block">
+                    @Html.LabelFor(x => x.StateId)<span class="star">*</span>:<br /><br />
+                </div>
+                <div class="RightColumn1" style="display:inline-block">
+                    @Html.DropDownListFor(x => x.StateId, new SelectList((System.Collections.IEnumerable)ViewData["StateList"], "StateId", "StateName"), "Select State", new { @id = "ddlState", @class = "form-control" })
+                    <p class="text-danger">@Html.ValidationMessageFor(x => x.StateId)</p>
+                </div>
+            </div><br />
+            <div class="DivHeight">
+                <div class="LeftColumn1" style="display:inline-block">
+                    @Html.LabelFor(x => x.CityId)<span class="star">*</span>:<br /><br />
+                </div>
+                <div class="RightColumn1" style="display:inline-block">
+                    @Html.DropDownListFor(x => x.CityId, new SelectList((System.Collections.IEnumerable)ViewData["CityList"], "CityId", "CityName"), "Select City", new { @id = "ddlCity", @class = "form-control" })
+                    <p class="text-danger">@Html.ValidationMessageFor(x => x.CityId)</p>
+                </div>
+            </div><br />
+            @*<div class="DivHeight">
+                <div class="LeftColumn1" style="display:inline-block">
+                    @Html.LabelFor(x => x.Password)<span class="star">*</span>:
+                </div>
+                <div class="RightColumn1" style="display:inline-block">
+                    @Html.PasswordFor(x => x.Password, new { @minlength = "6", @maxlength = "10", @class = "form-control" })
+                    <p class="text-danger">@Html.ValidationMessageFor(x => x.Password)</p>
+                </div>
+            </div><br />
+            <div class="DivHeight">
+                <div class="LeftColumn1" style="display:inline-block">
+                    @Html.LabelFor(x => x.ConformPassword)<span class="star">*</span>:
+                </div>
+                <div class="RightColumn1" style="display:inline-block">
+                    @Html.PasswordFor(x => x.ConformPassword, new { @minlength = "6", @maxlength = "10", @class = "form-control" })
+                    <p class="text-danger">@Html.ValidationMessageFor(x => x.ConformPassword) </p>
+                </div>
+            </div><br />*@
+        </div>
+        <div class="SubmitBack" style="margin-top:-26px;">
+            <input type="submit" class="saveBack btn-xs" value="Submit" />&nbsp;&nbsp;
+            <input type="button" class="saveBack btn-xs" value="Back" onclick="@("location.href='"+Url.Action("Index","UserAdmin")+"'")" />
+        </div>
+        @Html.HiddenFor(x=>x.UserId)
+        @Html.HiddenFor(x=>x.Password)
+        if (Model.RoleId == 1)
+        {
+            @Html.HiddenFor(x => x.RoleId, new { @Value =1 })
+        }
+        else
+        {
+            @Html.HiddenFor(x => x.RoleId, new { @Value =2 })
+        }
+    }
+</div>
+<script>
+    $(document).ready(function () {
+            //$.ajax({
+            //    type: "POST",
+            //    url: "/UserAdmin/GetCountry",
+            //    contentType: "application/json; charset=utf-8",
+            //    datatype: "json",
+            //    success: function (data) {
+            //        $("#ddlCountry").find("option").remove();
+            //        $("#ddlCountry").prepend("<option selected=selected value='0'>Select Country</option>");
+            //        $.each(data, function (index, value) {
+
+            //            $("#ddlCountry").append('<option value="' + value.CountryId + '">' + value.CountryName + '</option>');
+            //        });
+            //    },
+            //});
+        });
+        $("#ddlCountry").change(function () {
+            var countryId = $("#ddlCountry").val();
+            $.ajax({
+                type: "POST",
+                url: "/UserAdmin/GetStates?id=" + countryId,
+                contentType: "application/json; charset=utf-8",
+                datatype: "json",
+                success: function (data) {
+
+                    $("#ddlState").find("option").remove();
+                    $("#ddlState").append("<option selected=selected value='0'>Select State</option>");
+                   $.each(data, function (index, value) {
+
+                       $("#ddlState").append('<option value="' + value.StateId + '">' + value.StateName + '</option>');
+                    });
+                },
+                error: function (XMLHttpRequest, textStatus, errorThrown)
+                {
+                    alert("error " + XMLHttpRequest + " xhr " + textStatus + " status " + errorThrown);
+                },
+
+            });
+
+        $("#ddlState").change(function () {
+            var stateId = $("#ddlState").val();
+            $.ajax({
+
+                type: "POST",
+                url: "/UserAdmin/GetCity?id=" + stateId,
+                contentType: "application/json; charset=utf-8",
+                datatype: "json",
+                success: function (data) {
+
+                    $("#ddlCity").find("option").remove();
+                    $("#ddlCity").append("<option selected=selected value='0'>Select City</option>");
+                    $.each(data, function (index, value) {
+
+                        $("#ddlCity").append('<option value="' + value.CityId + '">' + value.CityName + '</option>');
+                    });
+
+                }
+
+            });
+
+        });
+    });
+</script>
+

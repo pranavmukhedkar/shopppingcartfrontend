@@ -1,0 +1,63 @@
+﻿@model List<ShoppingCart.Entity.CityModel>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.2.0.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.15/js/jquery.dataTables.js"></script>
+<link href="https://cdn.datatables.net/1.10.15/css/jquery.dataTables.min.css" rel="stylesheet" type="text/css" />
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+<h4>City Details</h4>
+<div>
+    <p style="color:green">@TempData["cityMassege"]</p>
+    <p style="color:red">@TempData["cityErrorMassege"]</p>
+</div><br />
+<div class="insertButton">
+    <input type="button" name="insert" value="Insert City" onclick="@("location.href='"+Url.Action("InsertCity","City",new {id=ViewBag.id })+"'")" />
+</div><br />
+<table id="CityTable">
+    <thead>
+        <tr>
+            <td>City Name</td>
+            <td>Created On</td>
+            <td></td>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var city in @Model)
+        {
+            <tr>
+                <td>@city.CityName</td>
+                <td>@city.CreatedOn</td>
+                <td>
+                    <input type="button" name="edit"   class="btn btn-primary" value="Edit" onclick="@("location.href='"+Url.Action("UpdateCity","City",new {id=city.CityId})+"'")" />
+                    <input type="button" name="delete" class="btn btn-danger" value="Delete" onclick="if (confirm('Are you sure you want to delete City?')) @("location.href='"+Url.Action("DeleteCity","City",new {id=city.CityId,stat=city.StateId}) +"'" )" />
+                </td>                                   
+            </tr>
+        }
+    </tbody>
+</table>
+
+<input type="button" name="back" value="Back" onclick="@("location.href='"+Url.Action("Index","State",new {id=Session["cntryid"]})+"'" )" />
+<script>
+    $(document).ready(function () {
+        $(".dilog").click(function () {
+            if (confirm("Are you sure want to delete city"))
+                return true;
+            else
+                return false;
+        });
+
+        $("#CityTable").DataTable({
+
+            columnDefs: [
+                            { "width": "25%", "targets": 0 },
+                            { "width": "25%", "targets": 1 },
+                            { "targets": 2, "orderable": false }
+                        ]
+        });
+    });
+
+</script>

@@ -1,0 +1,50 @@
+﻿@model ShoppingCart.Entity.CategoryModel
+@{
+    ViewBag.Title = "InsertCategory";
+}
+<script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.2.0.min.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+<link href="~/Content/MyCss.css" rel="stylesheet" />
+<style>
+    .btn-xs {
+        width: 69px;
+    }
+</style>
+
+<h3>Insert Category</h3>
+<div>
+    @using (@Html.BeginForm("InsertCategory","Category",FormMethod.Post,new { encType = "multipart/form-data" }))
+    {
+        <div class="DivHeight">
+            <div class="leftcolumn">
+                @Html.LabelFor(x => x.CategoryName)<span class="star"><b>*</b></span>:<br /><br />
+                @Html.LabelFor(x => x.CategoryImage)<span class="star"><b>*</b></span>:<br /><br />
+                @Html.LabelFor(x=>x.IsActive):
+            </div>
+            <div class="rightcolumn">
+                <div class="parent">
+                    <div style="display:inline-block">@Html.TextBoxFor(x => x.CategoryName,new { @maxlength="50",tabindex="1"})</div>
+                    <div class="validationMessage"> @Html.ValidationMessageFor(x => x.CategoryName)</div>
+                </div><br />
+                <div class="parent">
+                    <div  style="display:inline-block">@Html.TextBoxFor(x => x.file, new { id = "Button", Type = "file", Name = "file",tabindex="2" })</div> 
+                    <div class="validationMessage">@TempData["ImageErrorMassage"]</div>
+                    @* <input type="file" name="file" id="file"  required/><br />*@
+                </div><br />
+                    @Html.CheckBoxFor(x => x.IsActive,new {id = "Button", tabindex ="3"})<br /><br />
+                    <input type="submit" id="Button" class="saveBack btn-xs" value="Save" tabindex="4"/>
+                    <input type="button" id="Button" class="saveBack btn-xs" value="Back" tabindex="5" onclick="@("location.href='"+Url.Action("Index","Category")+"'")"
+                </div>
+        </div>
+
+
+    }
+</div>
+<script>
+    $(document).ready(function () {
+
+
+    });
+</script>
+

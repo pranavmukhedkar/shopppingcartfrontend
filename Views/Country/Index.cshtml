@@ -1,0 +1,56 @@
+﻿@model List<ShoppingCart.Entity.CountryModel>
+@{
+    ViewBag.Title = "Index";
+}
+@{ 
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.2.0.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.15/js/jquery.dataTables.js"></script>
+<link href="https://cdn.datatables.net/1.10.15/css/jquery.dataTables.min.css" rel="stylesheet" type="text/css" />
+<link href="~/Content/MyCss.css" rel="stylesheet" />
+<h4>Country Details</h4>
+<div>
+    <p style="color:green">@TempData["countryMassege"]</p>
+    <p style="color:red">@TempData["countryErrorMassege"]</p>
+</div>
+<div class="insertButton">
+    <input type="button" name="insert" value="Insert Country" onclick="@("location.href='"+Url.Action("InsertCountry","Country")+"'")" />
+</div>
+<table id="CountryTable">
+    <thead>
+        <tr>
+            <th>Country Name</th>
+            <th>Created On</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+       @foreach (var country in @Model)
+       {
+           <tr>
+               <td>@country.CountryName</td>
+               <td>@country.CreatedOn</td>
+               <td>
+                   <input type="button" name="edit "    class="btn btn-primary" value="Edit" onclick="@("location.href='"+Url.Action("UpdateCountry","Country",new {id=country.CountryId })+"'")" />
+                   <input type="button" name="state"    class="btn btn-primary" value="States" onclick="@("location.href='"+Url.Action("Index","State",new {id=country.CountryId })+"'")" />
+                   <input type="button" name="delete"   class="btn btn-danger" value="Delete"  onclick="if (confirm('Are you sure you want to delete Country?'))@("location.href='"+Url.Action("DeleteCountry","Country",new {id=country.CountryId })+"'")" />
+               </td>
+           </tr>
+       }
+    </tbody>
+</table>
+<script>
+    $(document).ready(function () {
+
+        $("#CountryTable").DataTable({
+            columnDefs: [
+                            { "width": "20%", "targets": 0 },
+                            { "width": "20%", "targets": 1 },
+                            { "width": "20%", "targets": 2 },
+                            {"targets":2,"orderable":false}
+                        ]
+        });
+    });
+
+</script>

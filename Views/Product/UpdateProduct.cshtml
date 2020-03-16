@@ -1,0 +1,65 @@
+﻿@model ShoppingCart.Entity.ProductModel
+@{
+    ViewBag.Title = "UpdateProduct";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.2.0.min.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+<link href="~/Content/MyCss.css" rel="stylesheet" />
+<h4>Update Product</h4>
+<div>
+    @using (@Html.BeginForm("UpdateProduct", "Product", FormMethod.Post, new { encType = "multipart/form-data" }))
+    {
+        <div class="DivHeight">
+            <div class="leftcolumn" style="display:inline">
+                @Html.LabelFor(x => x.ProductName)<span class="star">*</span>:<br /><br />
+                @Html.LabelFor(x => x.ProductImage)<span class="star">*</span>:<br /><br />
+                @Html.LabelFor(x=>x.ProductDescription):<br /><br /><br /><br />
+                @Html.LabelFor(x => x.IsActive):<br /><br />
+                @Html.LabelFor(x=>x.Price):
+            </div>
+            <div class="rightcolumn" style="display:inline">
+                <div class="DivWidth">
+                    <div style="display:inline-block">
+                        @Html.TextBoxFor(x => x.ProductName, new { @maxlength = "50", tabindex = "1" })
+                    </div>
+                    <div style="display:inline-block" class="validationMessage">
+                        @Html.ValidationMessageFor(x => x.ProductName)
+                    </div><br /><br />
+                    <div>
+                        <div class="first" style="display:inline-block">
+                            @*@Html.TextBoxFor(x=>x.ProductImage,new {Type="file",name="file" })*@
+                            <input type="file" name="file" id="file" tabindex="2"  /><br />
+                            <div style="display:inline-block">
+                                @Html.TextAreaFor(x => x.ProductDescription, new {  })
+                            </div>
+                            <div style="display:inline-block" class="validationMessage">
+                                @Html.ValidationMessageFor(x => x.ProductDescription)
+                            </div><br /><br />
+                            @Html.CheckBoxFor(x => x.IsActive, new { tabindex = "3" })<br /><br />
+                            @Html.TextBoxFor(x=>x.Price)
+                            @Html.HiddenFor(x => x.ProductId)
+                            @Html.HiddenFor(x => x.ProductImage)
+                            @Html.HiddenFor(x=>x.CategoryId)
+
+                            <input type="submit" id="Button" class="saveBack" value="Save" />&nbsp;&nbsp;
+                            <input type="button" id="Button" value="Back" onclick="@("location.href='"+Url.Action("Index","Product",new {id=@Model.CategoryId })+"'" )"
+                        </div>
+                    </div>
+                    <div class="ImageDiv" style="display:inline-block">
+                        @if (File.Exists(Server.MapPath("~/Uploded_Images/Product/" + @Model.ProductImage)))
+                        {
+                            <img src="~/Uploded_Images/Product/@Model.ProductImage" width="80" height="80" />
+                        }
+                        else
+                        {
+                            <img src="~/Uploded_Images/No_Image_Available.gif" width="80" height="80" />
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+
+</div>

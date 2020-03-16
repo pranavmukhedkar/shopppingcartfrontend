@@ -1,0 +1,63 @@
+﻿@model ShoppingCart.Entity.CategoryModel
+@{
+    ViewBag.Title = "UpdateCategory";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.2.0.min.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+<link href="~/Content/MyCss.css" rel="stylesheet" />
+<style>
+    .btn-xs {
+        width: 69px;
+    }
+</style>
+
+<h4>Update Category</h4>
+<div>
+    @using (@Html.BeginForm("UpdateCategory","Category",FormMethod.Post,new { encType= "multipart/form-data" }))
+    {
+        <div class="DivHeight">
+            <div class="leftcolumn" style="display:inline">
+                @Html.LabelFor(x => x.CategoryName)<span class="star">*</span>:<br /><br />
+                @Html.LabelFor(x => x.CategoryImage)<span class="star">*</span>:<br /><br />
+                @Html.LabelFor(x=>x.IsActive)
+            </div>
+            <div class="rightcolumn" style="display:inline">
+                <div class="DivWidth">
+                    <div style="display:inline-block">
+                        @Html.TextBoxFor(x => x.CategoryName, new { @maxlength = "50",tabindex="1" })
+                    </div>
+                    <div style="display:inline-block" class="validationMessage">
+                         @Html.ValidationMessageFor(x => x.CategoryName)
+                    </div><br /><br />
+                    <div >
+                        <div class="first" style="display:inline-block">
+                            @*@Html.TextBoxFor(x=>x.CategoryImage,new {Type="file",name="file" })*@
+                            <input type="file" name="file" id="file" tabindex="2" />
+                            
+                            <div class="validationMessage">@TempData["ImageErrorMassage"]</div><br />
+                            @Html.CheckBoxFor(x => x.IsActive,new {tabindex="3" }  )<br />
+                            @Html.HiddenFor(x => x.CategoryId)
+                            @Html.HiddenFor(x => x.CategoryImage)
+
+                            <input type="submit" id="Button" class="saveBack btn-xs" value="Save" />&nbsp;&nbsp;
+                            <input type="button" id="Button" class="saveBack btn-xs" onclick="@("location.href='"+Url.Action("Index","Category")+"'" )" />
+                        </div>
+                    </div>
+                    <div class="ImageDiv" style="display:inline-block">
+                        @if (File.Exists(Server.MapPath("~/Uploded_Images/Category/" + @Model.CategoryImage)))
+                        {
+                            <img src="~/Uploded_Images/Category/@Model.CategoryImage" width="80" height="80" />
+                        }
+                        else
+                        {
+                            <img src="~/Uploded_Images/No_Image_Available.gif" width="80" height="80" />
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+
+</div>

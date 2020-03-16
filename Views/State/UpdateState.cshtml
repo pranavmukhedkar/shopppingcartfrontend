@@ -1,0 +1,35 @@
+﻿@model ShoppingCart.Entity.StateModel
+@{
+    ViewBag.Title = "UpdatetState";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.2.0.min.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+<link href="~/Content/MyCss.css" rel="stylesheet" />
+<style>
+    .btn-xs {
+        width: 69px;
+    }
+</style>
+<h4>Update State</h4>
+<div>
+    @using (@Html.BeginForm())
+    {
+        <div class="DivHeight">
+            <div class="leftcolumn">
+                @Html.LabelFor(x => x.StateName)<span class="star">*</span>:
+            </div>
+            <div class="rightcolumn">
+                <div class="DivWidth">
+                    <div style="display:inline-block">@Html.TextBoxFor(x => x.StateName, new { @maxlength = "50",tabindex="1",@class="form-control" })</div> 
+                    @Html.HiddenFor(x => x.StateId)
+                    @Html.HiddenFor(x => x.CountryId)
+                    <div style="display:inline-block" class="validationMessage"> @Html.ValidationMessageFor(x => x.StateName)</div>
+                </div>
+                <input type="submit" id="Button" class="saveBack btn-xs" value="Save" tabindex="2"/>&nbsp;&nbsp;
+                <input type="button" id="Button" class="saveBack btn-xs" value="Back" tabindex="3" onclick="@("location.href='"+Url.Action("Index","State",new { id=@Model.CountryId})+"'" )"
+            </div>
+        </div>
+            }
+</div>

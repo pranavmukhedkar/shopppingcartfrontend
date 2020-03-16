@@ -1,0 +1,50 @@
+﻿@model List<ShoppingCart.Entity.OrderModel>
+@{
+    ViewBag.Title = "TrackOrder";
+}
+@{
+    var Total = 0;
+    var TotalPayment = 0;
+    var OrderId = 0;
+}
+<script src="https://code.jquery.com/jquery-1.11.0.min.js"></script>
+<script src="https://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/jspdf/1.3.4/jspdf.min.js"></script>
+    @*<script src="~/Scripts/bootstrap.min.js"></script>*@
+@*<script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/jspdf/0.9.0rc1/jspdf.min.js"></script>*@
+<style>
+    #Htmlcontent
+    {
+        /*margin-left:26px;
+        margin-right:26px;
+        margin-top:26px*/
+       /*width:800px*/
+    }
+</style>
+<div id="Htmlcontent">
+   
+   @{
+       Html.RenderAction("ViewForPDF", "Order",new {OrderId= @TempData["OrderId"] });
+   }
+</div>
+<div class="buttons clearfix">
+    <div class="pull-right"><a href="/Order/GetRecentOrder" class="btn btn-primary">Continue</a></div>&nbsp;
+    <a href="/Order/DownloadActionAsPDF"><div class="pull-right btn btn-primary" style="margin-right:41px" @*id="download"*@>Download PDF</div></a> 
+</div>
+<script type="text/javascript">
+$(document).ready(function () {
+    
+    $('#download').click(function () {
+
+        var doc = new jsPDF('l', 'mm', 'a3');
+        doc.addHTML($("#Htmlcontent"),9,9, {
+            pagesplit: true,
+            'background': '#fff',
+            useOverflow: true
+        }, function () {
+            doc.save('sample-file.pdf');
+        });
+       //doc.rect(20, 20, doc.internal.pageSize.width - 40, doc.internal.pageSize.height - 40, 'S');
+        });
+  });
+</script>

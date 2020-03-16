@@ -1,0 +1,75 @@
+﻿@model List<ShoppingCart.Entity.UserAdminModel>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.2.0.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.15/js/jquery.dataTables.js"></script>
+<link href="https://cdn.datatables.net/1.10.15/css/jquery.dataTables.min.css" rel="stylesheet" type="text/css" />
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+<link href="~/Content/MyCss.css" rel="stylesheet" />
+<h4>Admin User Details</h4>
+<div>
+    <p style="color:green">@TempData["UserMassege"]</p>
+    <p style="color:red">@TempData["UserErrorMassege"]</p>
+</div>
+<div class="insertButton">
+    <input type="button" class="btn btn-primary"  name="insert" value="Add Admin User" onclick="@("location.href='" + Url.Action("InsertUserAdmin", "UserAdmin") + "'" )" />
+</div><br />
+
+<table id="UserAdminTable" class="table display ">
+    <thead>
+            <tr>
+                <td><b>First Name</b></td>
+                <td><b>Last Name</b></td>
+                <td><b>Is Active</b></td>
+                <td><b>Email</b></td>
+                <td><b>Role</b></td>
+                <td><b>Phone</b></td>
+                <td><b>Country</b></td>
+                <td><b>Created On</b></td>
+                <td></td>
+            </tr>
+        
+    </thead>
+    <tbody>
+        @foreach (var userAdmin in @Model)
+        {
+            <tr>
+                <td>@userAdmin.FirstName</td>
+                <td>@userAdmin.LastName</td>
+                <td>@userAdmin.IsActive</td>
+                <td>@userAdmin.Email</td>
+                @if (@userAdmin.RoleId == 1)
+                {
+                    <td>Admin</td>
+                }
+                else
+                {
+                    <td>User</td>
+                }
+                <td>@userAdmin.PhoneNumber</td>
+                <td>@userAdmin.CountryName</td>
+                <td>@userAdmin.CreatedOn</td>
+                <td>
+                    <input type="button"  name="edit" value="Edit"    class="btn btn-success"  onclick="@("location.href='"+Url.Action("UpdateUserAdmin","UserAdmin",new {id=userAdmin.UserId })+"'" )" />
+                    <input type="button" name="delete" value="Delete" class="btn btn-danger" onclick="if (confirm('Are you sure you want to delete User?'))@("location.href='"+Url.Action("DeleteUserAdmin","UserAdmin",new {id=userAdmin.UserId })+"'" )" />
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<script>
+    $(document).ready(function () {
+        $("#UserAdminTable").DataTable({
+           columnDefs: [
+                            {"targets":7,"orderable":false},
+                            {"targets":8,"orderable":false}
+                       ]
+        });
+
+    });
+</script>

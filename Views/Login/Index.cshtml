@@ -1,0 +1,41 @@
+﻿@model ShoppingCart.Entity.LoginModel
+@{
+    ViewBag.Title = "Index";
+    var Email1 = TempData["Email"];
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<link href="~/Content/UserAdminCss.css" rel="stylesheet" />
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+<h3>Login Page</h3>
+<div>
+    <p class="text-danger">@TempData["LoginErrorMassege"]</p>  
+</div>
+<div class="ParentDiv">
+    @using (@Html.BeginForm())
+    {
+        <div class="DivHeight">
+            <div class="LeftColumn1" style="display:inline-block">
+                @Html.LabelFor(x => x.Email)<span class="star">*</span>:
+            </div>
+            <div class="RightColumn1" style="display:inline-block">
+                @Html.TextBoxFor(x=>x.Email, new { tabindex = "1", @class = "form-control", @Value= Email1 })
+                <p class="text-danger">@Html.ValidationMessageFor(x => x.Email)</p>
+            </div>
+        </div><br />
+        <div class="DivHeight">
+            <div class="LeftColumn1" style="display:inline-block">
+                @Html.LabelFor(x => x.Password)<span class="star">*</span>:<br /><br />
+            </div>
+            <div class="RightColumn1" style="display:inline-block">
+                @Html.PasswordFor(x => x.Password, new { tabindex = "2",@minlength="6",@maxlength="10", @class = "form-control" })
+                <p class="text-danger">@Html.ValidationMessageFor(x => x.Password)</p>
+            </div>
+        </div><br />
+        <div class="SubmitBackLogin">
+            <input type="submit" value="Login" />&nbsp;&nbsp;
+        </div>
+    }
+</div>

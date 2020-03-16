@@ -1,0 +1,67 @@
+﻿body {
+}
+.ParentDiv
+{
+    height:590px;
+    margin-top:55px;
+    padding-left:150px;
+}
+.ParentDiv1
+{
+    display:inline-block;
+    float:left;
+}
+.ParentDiv2
+{
+    display:inline-block;
+    margin-left:180px;
+}
+.LeftColumn
+{
+    display:inline-block;
+    float:left;
+    width:150px;
+}
+.RightColumn
+{
+    display:inline-block;
+}
+.SubmitBack
+{
+    padding-left:326px;
+    margin-top:130px;
+    padding-top:24px;
+}
+.star
+{
+    color:red;
+}
+.DivHeight
+{
+    height:50px;
+}
+.buttonFocus:focus
+{
+      border:solid red 1px;
+
+}
+.RightColumn1
+{
+    display:inline-block;
+}
+.LeftColumn1
+{
+    display:inline-block;
+    width:150px;
+    float:left;
+}
+.form-control
+{
+    width:175px;
+}
+.SubmitBackLogin
+{
+    padding-left:0px;
+    margin-top:0px;
+    margin-left:152px;
+}

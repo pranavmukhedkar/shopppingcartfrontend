@@ -1,0 +1,81 @@
+﻿@model List<ShoppingCart.Entity.ProductModel>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.2.0.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.15/js/jquery.dataTables.js"></script>
+<link href="https://cdn.datatables.net/1.10.15/css/jquery.dataTables.min.css" rel="stylesheet" type="text/css" />
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+<link href="~/Content/MyCss.css" rel="stylesheet" />
+<h4>Product Details</h4>
+<div>
+    <p style="color:green">@TempData["productMassege"]</p>
+    <p style="color:red">@TempData["productErrorMassege"]</p>
+    <p style="color:red">@TempData["ImageErrorMassage"]</p>
+</div>
+<div class="insertButton">
+    <input type="button" name="insert" value="Insert Product" onclick="@("location.href='"+Url.Action("InsertProduct","Product",new { id=@ViewBag.catId})+"'")" />
+</div>
+<table id="ProductTable">
+    <thead>
+        <tr>
+            <td>Product Name</td>
+            <td>Is Active</td>
+            <td>Image</td>
+            <td>Description</td>
+            <td>Created On</td>
+            <td></td>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var product in @Model)
+        {
+            <tr>
+                <td>@product.ProductName </td>
+                <td>@product.IsActive</td>
+                <td>
+                    @if (File.Exists(Server.MapPath("~/Uploded_Images/Product/" + product.ProductImage)))
+                    {
+                        <img src="~/Uploded_Images/Product/@product.ProductImage" width="80" height="80" />
+                    }
+                    else
+                    {
+                        <img src="~/Uploded_Images/No_Image_Available.gif" width="80" height="80" />
+                    }
+                </td>
+                <td>
+                    <p>
+                        @product.ProductDescription.Substring(0, Math.Min(product.ProductDescription.Length, 100))..
+                    </p>
+                </td>
+                <td>@product.CreatedOn</td>
+                <td>
+                    <input type="button" name="edit" value="Edit" onclick="@("location.href='"+Url.Action("UpdateProduct","Product", new { id= product.ProductId})+"'" )" />
+                    <input type="button" name="delete" value="Delete" onclick="if (confirm('Are you sure you want to delete State?'))@("location.href='"+Url.Action("DeleteProduct","Product", new { id= product.ProductId, cid=@ViewBag.catId})+"'")" />
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<input type="button" name="back" value="Back" onclick="@("location.href='"+Url.Action("Index","Category" )+"'"  )" />
+
+<script>
+    $(document).ready(function () {
+        $("#ProductTable").DataTable({
+           columnDefs: [
+                            { "width": "15%", "targets": 0 },
+                            { "width": "10%", "targets": 1 },
+                            { "width": "20%", "targets": 2 },
+                            { "width": "20%", "targets": 3 },
+                            { "width": "20%", "targets": 4 },
+                            { "width": "20%", "targets": 5 },
+                            { "targets": 2, "orderable": false },
+                            { "targets": 5, "orderable": false }
+                       ]
+        });
+
+    });
+</script>
