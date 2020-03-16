@@ -1,0 +1,165 @@
+﻿@model List<ShoppingCart.Entity.OrderModel>
+@{
+    ViewBag.Title = "TrackOrder";
+    // Layout = "~/Views/Shared/_Layout.cshtml";
+    int userId = ViewBag.UserID;
+    //Layout = null;
+}
+@{
+    decimal Total = 0;
+    decimal TotalPayment = 0;
+    var OrderId = 0;
+}
+
+
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+
+    <h2>Order Information</h2>
+    <table class="table table-bordered table-hover">
+        <thead>
+            <tr>
+                <td class="text-left" colspan="3">Order Details</td>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var order in Model)
+            {
+                if (OrderId != order.OrderId)
+                {
+                    { OrderId = order.OrderId; }
+                    <tr>
+                        <td class="text-left">
+                            <b>Order ID:</b> #@order.OrderId <br>
+                            <b>Date Added:</b>@order.CreatedOn
+                        </td>
+
+                        <td class="text-left">
+                            @if (!order.CardorCashPayment)
+                            {
+                                <b>Payment Method:</b><p>Cash On Delivery </p> <br>
+                            }
+                            else
+                            {
+                                <b>Payment Method:</b><p>Card Payment </p> <br>
+
+                            }
+                            @*<b>Shipping Method:</b> Flat Shipping Rate*@
+                        </td>
+                        <td class="text-left">
+                            <b>Comment:</b>  <br>
+                            @order.Comment
+                        </td>
+                    </tr>
+                }
+
+            }
+
+        </tbody>
+    </table>
+    <h2>Address</h2>
+    @{
+        Html.RenderAction("UserAddress", "Order", new { UserId = userId });
+    }
+
+        <h2>Products</h2>
+        <div class="table-responsive">
+            <table class="table table-bordered table-hover">
+                <thead>
+
+                    <tr>
+                        <td class="text-center">Product Image</td>
+                        <td class="text-center">Product Name</td>
+                        <td class="text-center">Quantity</td>
+                        <td class="text-center">Price</td>
+                        <td class="text-center">Total</td>
+                        @*<td style="width: 20px;"></td>*@
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var product in Model)
+            {
+                {
+                    Total = @product.Quantity * Convert.ToDecimal(@product.Price);
+                    TotalPayment = Convert.ToDecimal(@product.TotalPayment);
+                }
+                        <tr>
+                            <td class="text-center"><img src="https://plankteradmin.azurewebsites.net/Uploded_Images/Product/@product.ProductImage" height="50" width="50" /> </td>
+                            <td class="text-center">
+                                @product.ProductName <br>
+
+                            </td>
+                            <td class="text-center">@product.Quantity</td>
+                            <td class="text-center">@product.Price</td>
+                            <td class="text-center">@Total</td>
+
+                        </tr>
+                    }
+
+                </tbody>
+                <tfoot>
+
+                    <tr class="text-right">
+                        <td colspan="4"></td>
+                        <td class="text-center"><b>Total Rs.</b> @TotalPayment</td>
+                        @*<td class="text-right">Rs.@TotalPayment</td>*@
+                        @*<td></td>*@
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+<div id="order1" style="display:none" >
+    <div id="order2"></div>
+    
+    <div class="buttons clearfix">
+        <a target="_blank" href="/Order/DownloadActionAsPDF"><div class="pull-right btn btn-primary" id="download">Download</div></a>
+    </div>
+</div>
+    <div class="buttons clearfix">
+        <input type="button" class="pull-right btn btn-primary" id="OrderInformation" value="Continue"  onclick="OrderInformation(@OrderId,@userId)"/>
+        @*<a class="pull-right btn btn-primary" onclick=" OrderInformation()">Continue</a>*@
+    </div>
+
+
+<script>
+
+        function OrderInformation(OrderId,userId) {
+            debugger;
+
+            $.ajax({
+                type: 'POST',
+                url: "/Order/OrderInformationPartial?id="+ OrderId +"&UserId="+userId,
+                //contentType: 'application/json; charset=utf-8',
+                datatype: 'html',
+                success: function (data) {
+                    debugger;
+                    $("#order2").html(data);
+                },
+                //error: function () {
+                //    alert("Error");
+                //}
+            });
+
+            $("#order1").dialog({
+                autoOpen:true,
+                width:900,
+                hight:800,
+                modal: true,
+               
+                position: {my: "center",  at: "center", of: $("body"),within: $("body") },
+                open: function () {
+                    var closeBtn = $('.ui-dialog-titlebar-close');
+                    closeBtn.append('<span class="ui-button-icon-primary ui-icon ui-icon-closethick"></span>');
+                    
+                },
+                close : function(){
+                    // functionality goes here
+                    $("#order2").html("");
+                }  
+                
+            });
+
+        };
+       
+</script>

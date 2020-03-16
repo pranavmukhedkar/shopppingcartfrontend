@@ -1,0 +1,49 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+@{ 
+    int UserId = Convert.ToInt32(Session["UserId"]);
+}
+<script src="~/Scripts/jquery-1.10.2.min.js" type="text/javascript"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+<script src="~/Scripts/AddToCart.js"></script>
+<ul class="breadcrumb">
+    <li><a href="/Home/Index"><i class="fa fa-home"></i></a></li>
+    <li><a href="javascript:void(0)">Account</a></li>
+</ul>
+@if (@TempData["UserMassege"] != null)
+{
+    <div class="alert @TempData["class"]">
+        <i class="fa fa-check-circle"></i>@TempData["UserMassege"]
+    </div>
+}
+<div class="row">
+    <div id="content" class="col-sm-9">
+        <h2>My Account</h2>
+        <ul class="list-unstyled">
+            <li><a href="/Account/UpdateUser">Edit your account information</a></li>
+            <li><a href="/Account/ChangePassword">Change your password</a></li>
+            <li><a href="/Account/UpdateAddress">Modify your address book entries</a></li>
+            <li><a href="/Account/GetDate">GetDate</a></li>
+            <li><a href="">Modify your wish list</a></li>
+        </ul>
+        <h2>My Orders</h2>
+        <ul class="list-unstyled">
+            <li><a href="/Order/OrderHistory?id=@UserId">View your order history</a></li>
+        </ul>
+        @*<h2>Newsletter</h2>
+        <ul class="list-unstyled">
+            <li><a href="http://plankter.co.inaccount/newsletter">Subscribe / unsubscribe to newsletter</a></li>
+        </ul>*@
+    </div>
+    @*<column id="column-right" class="col-sm-3 hidden-xs">
+        <div class="list-group">
+            <a href="http://plankter.co.inaccount/account" class="list-group-item">My Account</a>
+            <a href="http://plankter.co.inaccount/edit" class="list-group-item">Edit Account</a> <a href="http://plankter.co.inaccount/password" class="list-group-item">Password</a>
+            <a href="http://plankter.co.inaccount/address" class="list-group-item">Address Books</a> <a href="http://plankter.co.inaccount/wishlist" class="list-group-item">Wish List</a> <a href="http://plankter.co.inaccount/order" class="list-group-item">Order History</a> <a href="http://plankter.co.inaccount/download" class="list-group-item">Downloads</a> <a href="http://plankter.co.inaccount/reward" class="list-group-item">Reward Points</a> <a href="http://plankter.co.inaccount/return" class="list-group-item">Returns</a> <a href="http://plankter.co.inaccount/transaction" class="list-group-item">Transactions</a> <a href="http://plankter.co.inaccount/newsletter" class="list-group-item">Newsletter</a><a href="http://plankter.co.inaccount/recurring" class="list-group-item">Recurring payments</a>
+            <a href="http://plankter.co.inaccount/logout" class="list-group-item">Logout</a>
+        </div>
+    </column>*@
+</div>

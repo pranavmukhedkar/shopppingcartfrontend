@@ -1,0 +1,45 @@
+﻿@model List<ShoppingCart.Entity.OrderHistoryModel>
+@{
+    ViewBag.Title = "OrderHistory";
+}
+
+    <ul class="breadcrumb">
+        <li><a href="/Home/Index"><i class="fa fa-home"></i></a></li>
+        <li><a href="/Account/Index">Account</a></li>
+        <li><a href="#">Order History</a></li>
+    </ul>
+   
+            <h1>Order History</h1>
+            <div class="table-responsive">
+                <table class="table table-bordered table-hover">
+                    <thead>
+                        <tr>
+                            <td class="text-right">Order ID</td>
+                            <td class="text-left">Date Added</td>
+                            <td class="text-right">No. of Products</td>
+                            <td class="text-left">Customer</td>
+                            <td class="text-right">Total</td>
+                            <td></td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td class="text-right">#@item.OrderId</td>
+                                <td class="text-left">@item.CreatedOn</td>
+                                <td class="text-right">@item.TotalQuantity</td>
+                                <td class="text-left">@item.FirstName @item.LastName</td>
+                                <td class="text-right">Rs. @item.TotalPrice</td>
+                                <td class="text-right"><a href="/Order/TrackOrder?id=@item.OrderId" data-toggle="tooltip" title="" class="btn btn-info" data-original-title="View"><i class="fa fa-eye"></i></a></td>
+                            </tr>
+                        }
+
+                    </tbody>
+                </table>
+            </div>
+            <div class="text-right"></div>
+            <div class="buttons clearfix">
+                <div class="pull-right"><a href="/Account/Index" class="btn btn-primary">Continue</a></div>
+            </div>
+       

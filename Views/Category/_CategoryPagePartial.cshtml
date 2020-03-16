@@ -1,0 +1,17 @@
+﻿@model List<ShoppingCart.Entity.CategoryModel>
+@{
+    ViewBag.Title = "_CategoryPagePartial";
+}
+@{ 
+    var a = "https://plankteradmin.azurewebsites.net/Uploded_Images/Category/" + @Model.Select(x => x.CategoryImage).FirstOrDefault();
+}
+<div class="list-group">
+
+    @foreach (var category in @Model)
+    {
+            <a href="../Category/Index?id=@category.CategoryId" class="list-group-item" id="@category.CategoryId">@category.CategoryName</a>
+            <input type="hidden"  value="@category.CategoryId" />
+    }
+</div>
+
+

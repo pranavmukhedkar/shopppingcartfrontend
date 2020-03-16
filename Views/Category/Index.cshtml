@@ -1,0 +1,165 @@
+﻿@model List<ShoppingCart.Entity.ProductModel>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@{ 
+    var image = @Model.Select(X => X.CategoryImage).FirstOrDefault();
+    var categoryName = @Model.Select(x => x.CategoryName).FirstOrDefault();
+    var imageName = "https://plankteradmin.azurewebsites.net/Uploded_Images/Category/" + @Model.Select(x => x.CategoryImage).FirstOrDefault();
+}
+@if(image==null)
+    {
+        imageName = "https://plankteradmin.azurewebsites.net/Uploded_Images/Category/" + @ViewData["categoryImage"];
+    }
+<script src="~/Scripts/AddToCart.js"></script>
+@*<div class="container">*@
+    <ul class="breadcrumb">
+        <li><a href="/Home/Index"><i class="fa fa-home"></i></a></li>
+        @if (categoryName != null)
+        {
+        <li><a href="../Category/Index?id=@Model.Select(x => x.CategoryId).FirstOrDefault()" >@Model.Select(X => X.CategoryName).FirstOrDefault()</a></li>
+        }
+        else
+        {
+            <li><a href="../Category/Index?id=@ViewData["categoryId"]">@ViewData["categoryName"]</a></li>
+        }
+    </ul>
+    <div class="row">
+        <column id="column-left" class="col-sm-3 hidden-xs">
+        <input type="hidden" id="categoryId" value=@Model.Select(X => X.CategoryId).FirstOrDefault()>    
+            @{
+                    Html.RenderAction("_CategoryPagePartial", "Category");
+             }
+
+            @*<div id="slideshow0" class="flexslider">
+                <a href="index.php?route=product/manufacturer/info&amp;manufacturer_id=7"><img src="@imageName" alt="HP Banner" class="img-responsive" /></a>
+            </div>*@
+        </column>
+        <div id="content" class="col-sm-9">
+            @if(categoryName!=null)
+            { 
+                <h2>@Model.Select(x=>x.CategoryName).FirstOrDefault()</h2>
+            }
+            else
+            {
+                <h2>@ViewData["categoryName"] </h2>
+            }
+            <div class="row">
+                
+                    <div class="col-sm-2"><img src="@imageName" alt="@Model.Select(x=>x.ProductName).FirstOrDefault()" title="@Model.Select(x=>x.ProductName).FirstOrDefault()" class="img-thumbnail" /></div>
+                
+                <div class="col-sm-10">
+                    @if (categoryName != null)
+                    {
+                        <p>
+                            Example of category description text
+                        </p>
+                    }
+                    else
+                    {
+                        <p>
+                            @ViewBag.Massege
+                        </p>
+                    }
+
+                </div>
+            </div>
+            <hr>
+            <h3>@*Refine Search*@</h3>
+            <div class="row " id="grid-view" >
+                @*<div class="col-sm-3">
+                    <ul>
+                        <li><a href="http://plankter.co.inproduct/category&amp;path=20_26">PC (0)</a></li>
+                        <li><a href="http://plankter.co.inproduct/category&amp;path=20_27">Mac (1)</a></li>
+                    </ul>
+                </div>
+            </div>
+            <p><a href="http://plankter.co.inproduct/compare" id="compare-total">Product Compare (0)</a></p>*@
+                <div class="row">
+                    @*<div class="col-md-4">
+                        <div class="btn-group">
+                           <button type="button" id="list-view" class="btn btn-default" data-toggle="tooltip" title="List"><i class="fa fa-th-list"></i></button>
+                            <button type="button" id="grid-view" class="btn btn-default" data-toggle="tooltip" title="Grid"><i class="fa fa-th"></i></button>
+                        </div>
+                    </div>*@
+                    @*<div class="col-md-2 text-right">
+                    <label class="control-label" for="input-sort">Sort By:</label>
+                </div>
+                <div class="col-md-3 text-right">
+                    <select id="input-sort" class="form-control col-sm-3" onchange="location = this.value;">
+                        <option value="http://plankter.co.inproduct/category&amp;path=20&amp;sort=p.sort_order&amp;order=ASC" selected="selected">Default</option>
+                        <option value="http://plankter.co.inproduct/category&amp;path=20&amp;sort=pd.name&amp;order=ASC">Name (A - Z)</option>
+                        <option value="http://plankter.co.inproduct/category&amp;path=20&amp;sort=pd.name&amp;order=DESC">Name (Z - A)</option>
+                        <option value="http://plankter.co.inproduct/category&amp;path=20&amp;sort=p.price&amp;order=ASC">Price (Low &gt; High)</option>
+                        <option value="http://plankter.co.inproduct/category&amp;path=20&amp;sort=p.price&amp;order=DESC">Price (High &gt; Low)</option>
+                        <option value="http://plankter.co.inproduct/category&amp;path=20&amp;sort=rating&amp;order=DESC">Rating (Highest)</option>
+                        <option value="http://plankter.co.inproduct/category&amp;path=20&amp;sort=rating&amp;order=ASC">Rating (Lowest)</option>
+                        <option value="http://plankter.co.inproduct/category&amp;path=20&amp;sort=p.model&amp;order=ASC">Model (A - Z)</option>
+                        <option value="http://plankter.co.inproduct/category&amp;path=20&amp;sort=p.model&amp;order=DESC">Model (Z - A)</option>
+                    </select>
+                </div>
+                <div class="col-md-1 text-right">
+                    <label class="control-label" for="input-limit">Show:</label>
+                </div>
+                <div class="col-md-2 text-right">
+                    <select id="input-limit" class="form-control" onchange="location = this.value;">
+                        <option value="http://plankter.co.inproduct/category&amp;path=20&amp;limit=15" selected="selected">15</option>
+                        <option value="http://plankter.co.inproduct/category&amp;path=20&amp;limit=25">25</option>
+                        <option value="http://plankter.co.inproduct/category&amp;path=20&amp;limit=50">50</option>
+                        <option value="http://plankter.co.inproduct/category&amp;path=20&amp;limit=75">75</option>
+                        <option value="http://plankter.co.inproduct/category&amp;path=20&amp;limit=100">100</option>
+                    </select>
+                </div>*@
+                </div>
+            </div>
+
+            <br />
+            <div class="row">
+@foreach (var product in Model)
+{
+                <div class="product-layout product-list col-xs-12">
+                    <div class="product-thumb">
+                        
+                        <div class="image"
+                             
+                             >
+                            <a href="../Product/Index?id=@product.ProductId"><img src="http://plankter.co.in/Uploded_Images/Product/@product.ProductImage" alt="@product.ProductName;" title="@product.ProductName;" class="img-responsive" style="height:225px;"/> </a> </div>
+                        <div>
+                            <div class="caption">
+                                <h4><a href="../Product/Index?id=@product.ProductId">@product.ProductName&quot;</a></h4>
+                                <p>
+                                    @product.ProductDescription.Substring(0, Math.Min(product.ProductDescription.Length, 100))..
+                                </p>
+                                <p class="price">
+                                    <span class="price-new">Rs.@product.Price</span> 
+                                </p>
+                            </div>
+                            <div class="button-group">
+                                <button type="button" onclick="AddToCart(@product.ProductId,1);"><i class="fa fa-shopping-cart"></i> <span class="hidden-xs hidden-sm hidden-md">Add to Cart</span></button>
+                                <button type="button" data-toggle="tooltip" title="Add to Wish List" onclick="wishlist.add('42');"><i class="fa fa-heart"></i></button>
+                                <button type="button" data-toggle="tooltip" title="Compare this Product" onclick="compare.add('42');"><i class="fa fa-exchange"></i></button>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+       }
+            </div>
+            <div class="row">
+                <div class="col-sm-6 text-left"></div>
+            </div>
+        </div>
+    </div>
+@*</div>*@
+<script>
+    $(document).ready(function () {
+        debugger;
+        var categoryId = $("#categoryId").val();
+        $('.list-group').find('input:hidden').each(function () {
+            if ($(this).val() == categoryId) {
+                $("#" + categoryId).addClass("active");
+            }
+        });
+    });
+</script>

@@ -1,0 +1,222 @@
+﻿@model ShoppingCart.Entity.UserAdminModel
+@{
+    ViewBag.Title = "Index";
+}
+
+@*<script src="~/Scripts/jquery-1.10.2.min.js"></script>*@
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+<script src="~/Scripts/AddToCart.js"></script>
+
+<ul class="breadcrumb">
+    <li><a href="http://plankter.co.incommon/home"><i class="fa fa-home"></i></a></li>
+    <li><a href="/Account/Index">Account</a></li>
+    <li><a href="javascript:void(0)">Register</a></li>
+</ul>
+<div class="row">
+    <div id="content" class="col-sm-9">
+        <h1>Register Account</h1>
+        <p>If you already have an account with us, please login at the <a href="/Login/Index">login page</a>.</p>
+        <form action="../Register/RegisterUser" method="post" enctype="multipart/form-data" class="form-horizontal">
+            <fieldset id="account">
+                <legend>Your Personal Details</legend>
+                <div class="form-group required" style="display: none;">
+                    <label class="col-sm-2 control-label">Customer Group</label>
+                    <div class="col-sm-10">
+                        <div class="radio">
+                            <label>
+                                <input type="radio" name="customer_group_id" value="1" checked="checked" />
+                                Default
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group required">
+                    <label class="col-sm-2 control-label" for="input-firstname">First Name</label>
+                    <div class="col-sm-10">
+                        @*<input type="text" name="firstname" value="" placeholder="First Name" id="input-firstname" class="form-control" />*@
+                        @Html.TextBoxFor(x => x.FirstName, new { @maxlength = "20", @class = "form-control",@id= "input-firstname", @placeholder = "First Name" })
+                    </div>
+                    <p class="text-danger" style="padding-left:162px;height:auto">@Html.ValidationMessageFor(x => x.FirstName)</p>
+                </div>
+                
+                
+                <div class="form-group required">
+                    <label class="col-sm-2 control-label" for="input-lastname">Last Name</label>
+                    <div class="col-sm-10">
+                        @*<input type="text" name="lastname" value="" placeholder="Last Name" id="input-lastname" class="form-control" />*@
+                        @Html.TextBoxFor(x => x.LastName, new { @maxlength = "20", @class = "form-control", @id = "input-firstname", @placeholder = "Last Name" })
+                     </div>
+                    <p class="text-danger" style="padding-left:162px;">@Html.ValidationMessageFor(x => x.LastName)</p>
+                 </div>
+               
+                
+                 <div class="form-group required">
+                    <label class="col-sm-2 control-label" for="input-email">E-Mail</label>
+                    <div class="col-sm-10">
+                        @*<input type="email" name="email" value="" placeholder="E-Mail" id="input-email" class="form-control" />*@
+                        @Html.TextBoxFor(x => x.Email, new { @maxlength = "50", @class = "form-control", @placeholder = "E-Mail", @id = "input-email" })
+                     </div>
+                    <p class="text-danger" style="padding-left:162px;">@Html.ValidationMessageFor(x => x.Email)</p> 
+                </div>
+              
+                
+               <div class="form-group required">
+                    <label class="col-sm-2 control-label" for="input-telephone">Telephone</label>
+                    <div class="col-sm-10">
+                        @*<input type="tel" name="telephone" value="" placeholder="Telephone" id="input-telephone" class="form-control" />*@
+                        @Html.TextBoxFor(x => x.PhoneNumber, new { @minlength = "10", @maxlength = "10", @class = "form-control",@placeholder = "Telephone" ,@id = "input-telephone" })
+                    </div>
+                   <p class="text-danger" style="padding-left:162px;">@Html.ValidationMessageFor(x => x.PhoneNumber)</p>
+                </div>
+            </fieldset>
+         
+            <fieldset id="address">
+                <legend>Your Address</legend>
+                @*<div class="form-group">
+                    <label class="col-sm-2 control-label" for="input-company">Company</label>
+                    <div class="col-sm-10">
+                        <input type="text" name="company" value="" placeholder="Company" id="input-company" class="form-control" />
+                    </div>
+                </div>*@
+                <div class="form-group required">
+                    <label class="col-sm-2 control-label" for="input-address-1">Address 1</label>
+                    <div class="col-sm-10">
+                        @*<input type="text" name="address_1" value="" placeholder="Address 1" id="input-address-1" class="form-control" />*@
+                        @Html.TextAreaFor(x => x.Address1, new { @class = "form-control" })
+                      </div>
+                    <p class="text-danger" style="padding-left:162px;">@Html.ValidationMessageFor(x => x.Address1)</p>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label" for="input-address-2">Address 2</label>
+                    <div class="col-sm-10">
+                        @*<input type="text" name="address_2" value="" placeholder="Address 2" id="input-address-2" class="form-control" />*@
+                        @Html.TextAreaFor(x => x.Address2, new { @class = "form-control" })
+                        </div>
+                    <p class="text-danger" style="padding-left:162px;">@Html.ValidationMessageFor(x => x.Address2)</p>
+                </div>
+                <div class="form-group required">
+                    <label class="col-sm-2 control-label" for="input-country">Country</label>
+                    <div class="col-sm-10">
+                        @*<select name="country_id" id="input-country" class="form-control">
+                            <option value=""> --- Please Select --- </option>
+
+                        </select>*@
+                        @*@Html.DropDownListFor(x => x.CountryId, new SelectList((System.Collections.IEnumerable)ViewData["CountryList"], "CountryId", "CountryName"), "Select Country", new { @id = "ddlCountry", @class = "form-control" })*@
+                        @Html.DropDownListFor(x => x.CountryId, new List<SelectListItem>(), "Select Country", new { @id = "ddlCountry", @class = "form-control" })
+                    </div>
+                    <p class="text-danger" style="padding-left:162px;">@Html.ValidationMessageFor(x => x.CountryId)</p>
+                </div>
+
+                <div class="form-group required">
+                    <label class="col-sm-2 control-label" for="input-zone">Region / State</label>
+                    <div class="col-sm-10">
+                        @*<select name="zone_id" id="input-zone" class="form-control"></select>*@
+
+                        @Html.DropDownListFor(x => x.StateId, new List<SelectListItem>() , "Select State", new { @id = "ddlState", @class = "form-control" })
+                    </div>
+                    <p class="text-danger" style="padding-left:162px;">@Html.ValidationMessageFor(x => x.StateId)</p>
+                </div>
+                <div class="form-group required">
+                    <label class="col-sm-2 control-label" for="input-city">City</label>
+                    <div class="col-sm-10">
+                      @*  <input type="text" name="city" value="" placeholder="City" id="input-city" class="form-control" />*@
+
+                        @Html.DropDownListFor(x => x.CityId, new List<SelectListItem>(), "Select City", new { @id = "ddlCity", @class = "form-control" })
+                      </div>
+                    <p class="text-danger" style="padding-left:162px;">@Html.ValidationMessageFor(x => x.CityId)</p>
+                </div>
+
+                <div class="form-group required">
+                    <label class="col-sm-2 control-label" for="input-city">Zip Code</label>
+                    <div class="col-sm-10">
+                        @Html.TextBoxFor(x => x.Zip, new {@maxlength="6" ,@class = "form-control" })
+                    </div>
+                    <p class="text-danger" style="padding-left:162px;">@Html.ValidationMessageFor(x => x.Zip)</p>
+                </div>
+                @*<div class="form-group required">
+                    <label class="col-sm-2 control-label" for="input-postcode">Post Code</label>
+                    <div class="col-sm-10">
+                        <input type="text" name="postcode" value="" placeholder="Post Code" id="input-postcode" class="form-control" />
+                    </div>
+                </div>*@
+                @Html.HiddenFor(x=>x.IsActive,new { @Value="true"})
+                    
+            </fieldset>
+            <fieldset>
+                <legend>Your Password</legend>
+                <div class="form-group required">
+                    <label class="col-sm-2 control-label" for="input-password">Password</label>
+                    <div class="col-sm-10">
+                        @*<input type="password" name="password" value="" placeholder="Password" id="input-password" class="form-control" />*@
+                        @Html.PasswordFor(x => x.Password, new { @minlength = "6", @maxlength = "10", @class = "form-control" })
+                    </div>
+                    <p class="text-danger" style="padding-left:162px;">@Html.ValidationMessageFor(x => x.Password)</p>
+                </div>
+                <div class="form-group required">
+                    <label class="col-sm-2 control-label" for="input-confirm">Password Confirm</label>
+                    <div class="col-sm-10">
+                        @*<input type="password" name="confirm" value="" placeholder="Password Confirm" id="input-confirm" class="form-control" />*@
+                        @Html.PasswordFor(x => x.ConformPassword, new { @minlength = "6", @maxlength = "10", @class = "form-control" })
+                      </div>
+                    <p class="text-danger" id="email" style="padding-left:162px;">@Html.ValidationMessageFor(x => x.ConformPassword) </p>
+                </div>
+            </fieldset>
+           
+            <div class="buttons">
+                <div class="pull-right">
+                    I have read and agree to the <a href="http://plankter.co.in/information/agree&amp;information_id=3" class="agree"><b>Privacy Policy</b></a> <input type="checkbox" name="agree" id="TermAndPolicy" value="" />
+                    &nbsp;
+                    <input type="submit" id="submitButton" value="Continue" class="btn btn-primary " />
+                </div>
+            </div>
+            @Html.HiddenFor(x=>x.RoleId, new {@Value=2 })
+        </form>
+    </div>
+    <column id="column-right" class="col-sm-3 hidden-xs">
+        <div class="list-group">
+            <a href="http://plankter.co.inaccount/login" class="list-group-item">Login</a> <a href="http://plankter.co.inaccount/register" class="list-group-item">Register</a> <a href="http://plankter.co.inaccount/forgotten" class="list-group-item">Forgotten Password</a>
+            <a href="http://plankter.co.inaccount/account" class="list-group-item">My Account</a>
+            <a href="http://plankter.co.inaccount/address" class="list-group-item">Address Books</a> <a href="http://plankter.co.inaccount/wishlist" class="list-group-item">Wish List</a> <a href="http://plankter.co.inaccount/order" class="list-group-item">Order History</a> <a href="http://plankter.co.inaccount/download" class="list-group-item">Downloads</a> <a href="http://plankter.co.inaccount/reward" class="list-group-item">Reward Points</a> <a href="http://plankter.co.inaccount/return" class="list-group-item">Returns</a> <a href="http://plankter.co.inaccount/transaction" class="list-group-item">Transactions</a> <a href="http://plankter.co.inaccount/newsletter" class="list-group-item">Newsletter</a><a href="http://plankter.co.inaccount/recurring" class="list-group-item">Recurring payments</a>
+        </div>
+    </column>
+</div>
+<script src="~/Scripts/jquery-1.10.2.min.js" type="text/javascript"></script>
+<script src="~/Scripts/AddressCascad.js" type="text/javascript"></script>
+<script>
+    $(document).ready(function () {
+        debugger;
+        $('#submitButton').attr('disabled', 'disabled');
+        $("#TermAndPolicy").click(function () {
+            if ($(this).is(':checked')) {
+                $('#submitButton').removeAttr('disabled');
+            } else {
+                $('#submitButton').attr('disabled', 'disabled');
+            }
+        });
+
+
+        $.ajax({
+                type: "POST",
+                url: "/Register/GetCountry",
+                contentType: "application/json; charset=utf-8",
+                datatype: "json",
+                success: function (data) {
+
+                    $("#ddlCountry").find("option").remove();
+                    $("#ddlCountry").append("<option selected=selected value='0'>Select Country</option>");
+                    $.each(data, function (index, value) {
+
+                        $("#ddlCountry").append('<option value="' + value.CountryId+ '">' + value.CountryName + '</option>');
+                    });
+
+
+                },
+                error: function (XMLHttpRequest, textStatus, errorThrown) {
+                    alert("error " + XMLHttpRequest + " xhr " + textStatus + " status " + errorThrown);
+                },
+
+            });
+        
+    });
+</script>

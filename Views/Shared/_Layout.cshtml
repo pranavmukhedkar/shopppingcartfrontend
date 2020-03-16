@@ -1,0 +1,225 @@
+﻿    
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>The OpenCart demo store</title>
+    <script src="~/Scripts/jquery-1.10.2.min.js" type="text/javascript"></script>
+    <script src="~/Scripts/common.js" type="text/javascript"></script>
+    <script src="~/Scripts/bootstrap.min.js" type="text/javascript"></script>
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" type="text/css" media="screen"/>    
+    <link href="~/Content/stylesheet.css" rel="stylesheet" type="text/css"/>            
+
+    <link href="~/Content/fonts/font-awesome.min.css" rel="stylesheet" />
+    
+    <script src="~/Scripts/jquery.flexslider-min.js" type="text/javascript"></script>
+    <link href="~/content/flexslider.css" type="text/css" rel="stylesheet"  />
+    <link href="//fonts.googleapis.com/css?family=open+sans:400,400i,300,700" rel="stylesheet" />
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <link href="~/Content/JQueryUI.css" rel="stylesheet" />
+    <script src="~/Scripts/AddToCart.js"></script>
+    <style>
+        .navbar
+        {
+            min-height:40px !important;
+        }
+    </style>
+    <title>@ViewBag.Title - Plankter Organic, Recycle and Reuse</title>
+   
+</head>
+<body class="common-home">
+    <nav id="top">
+        <div class="container">
+          
+            <div id="top-links" class="nav pull-right">
+                <ul class="list-inline">
+                    <li><a href="http://plankter.co.in/contact"><i class="fa fa-phone"></i></a> <span class="hidden-xs hidden-sm hidden-md">+91 9112299435</span></li>
+                    <li class="dropdown">
+                        <a href="http://plankter.co.inaccount/account" title="My Account" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> <span class="hidden-xs hidden-sm hidden-md">My Account</span> <span class="caret"></span></a>
+                        <ul class="dropdown-menu dropdown-menu-right">
+                            @if (Session["UserId"] != null)
+                            {
+                                <li><a href="/Account/Index">My Account</a></li>
+                                <li><a href="/Order/OrderHistory">Order History</a></li>
+                                <li><a href="../Login/LogoutUser">Logout</a></li>
+                            }
+                            else
+                            {
+                                <li><a href="../Register/Index">Register</a></li>
+                                <li><a href="../Login/Index">Login</a></li>
+                            }
+                        </ul>
+                    </li>
+                    <li><a href="/ShoppingCart/Index" title="Shopping Cart"><i class="fa fa-shopping-cart"></i> <span class="hidden-xs hidden-sm hidden-md">Shopping Cart</span></a></li>
+                    <li><a href="/ShoppingCart/Checkout" title="Checkout"><i class="fa fa-share"></i> <span class="hidden-xs hidden-sm hidden-md">Checkout</span></a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <header>
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-4">
+                    
+                    <div id="logo">
+                        <a href="/Home/Index"><img src="https://plankteradmin.azurewebsites.net/Content/Planker.JPG" title="The OpenCart demo store" alt="The OpenCart demo store" class="img-responsive" /></a>
+                    </div>
+                </div>
+                <div class="col-sm-5">
+                    <div id="search" class="input-group ui-widget">
+                        <input type="text" name="search" value="" id="tags" placeholder="Search" class="form-control input-lg" />
+                        <span class="input-group-btn">
+                            <button type="button"  class="btn btn-default btn-lg"><i class="fa fa-search"></i></button>
+                        </span>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div id="cart" class="btn-group btn-block ">
+                        <button type="button"   data-toggle="dropdown" data-loading-text="Loading..." class="btn btn-inverse btn-block btn-lg dropdown-toggle"><i class="fa fa-shopping-cart"></i> <span id="cart-total">0 item(s) - Rs.0.00</span></button>
+                        <ul id="ProductList" class="dropdown-menu pull-right">
+                            @*_ProductList partial view rendor*@ 
+                        </ul>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+
+    <div class="container">
+        <nav id="menu" class="navbar">
+            @*<div class="collapse navbar-collapse navbar-ex1-collapse">*@
+                <ul class="nav navbar-nav">
+                  @{Html.RenderAction("_CategoryPartial", "Home"); }
+                </ul>
+            @*</div>*@
+        </nav>
+    </div>
+    
+    <div class="container" style="padding-left:0px;">
+        <div class="container body-content">
+            <div class="alert alert-success hidden" @*style="display:none;"*@ id="successBox">
+                <i class="fa fa-check-circle"></i>
+                
+                Success: You have added
+                <a  id="ProductId" > <span id="ProductName"> </span></a>
+                to your
+                <a href="../Home/Index">shopping cart</a>!
+                <button type="button" class="close" data-dismiss="alert">×</button>
+            </div>
+            @RenderBody()
+            <hr />
+         </div>
+        </div>
+
+
+        <footer>
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-3">
+                        <h5>Information</h5>
+                        <ul class="list-unstyled">
+                            <li><a href="http://plankter.co.in/information&amp;information_id=4">About Us</a></li>
+                            <li><a href="http://plankter.co.in/information&amp;information_id=6">Delivery Information</a></li>
+                            <li><a href="http://plankter.co.in/information&amp;information_id=3">Privacy Policy</a></li>
+                            <li><a href="http://plankter.co.in/information&amp;information_id=5">Terms &amp; Conditions</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-sm-3">
+                        <h5>Customer Service</h5>
+                        <ul class="list-unstyled">
+                            <li><a href="http://plankter.co.in/contact">Contact Us</a></li>
+                            <li><a href="http://plankter.co.in/account/return/add">Returns</a></li>
+                            <li><a href="http://plankter.co.in/sitemap">Site Map</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-sm-3">
+                        <h5>Extras</h5>
+                        <ul class="list-unstyled">
+                            <li><a href="http://plankter.co.in/product/manufacturer">Brands</a></li>
+                            <li><a href="http://plankter.co.in/account/voucher">Gift Vouchers</a></li>
+                            <li><a href="http://plankter.co.in/affiliate/account">Affiliates</a></li>
+                            <li><a href="http://plankter.co.in/product/special">Specials</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-sm-3">
+                        <h5>My Account</h5>
+                        <ul class="list-unstyled">
+                            <li><a href="http://plankter.co.in/account/account">My Account</a></li>
+                            <li><a href="#">Order History</a></li>
+                            <li><a href="http://plankter.co.in/account/wishlist">Wish List</a></li>
+                            <li><a href="http://plankter.co.in/account/newsletter">Newsletter</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <hr>
+                <p>Powered By <a href="http://plankter.co.in">Plankter</a><br /> Plankter store &copy; 2020</p>
+            </div>
+        </footer>
+</body>
+</html>
+
+<script>
+    $(document).ready(function () {
+        debugger;
+        @*  var availableCategory = [];
+        $.ajax({
+            type: 'POST',
+            url: "/Home/GetCategory?id="+1,
+            contentType: 'application/json; charset=utf-8',
+            datatype: 'json',
+            success: function (data) {
+                $.each(data, function (index, value) {
+                    var label = value.CategoryId;
+                    var value1 = value.CategoryName;
+                    //availableCategory.push(name);
+                    availableCategory.push(value1, label);
+                    //alert(value.CategoryName);
+                });
+            },
+
+            error:function(){
+                alert("Error");
+            }
+
+        });
+        $("#tags").autocomplete({
+
+            source:availableCategory
+
+        });
+        //$("#tags").autocomplete({
+        //    source: function (request, response) {
+        //        $.ajax({
+        //            type: 'POST',
+        //            url: "/Home/GetCategory?id=" + 1,
+        //            contentType: 'application/json; charset=utf-8',
+        //            data:request,
+        //            datatype: 'json',
+        //            success: function (data) {
+        //              response ( $.each(data, function (index, value) {
+        //                    var label = value.CategoryId;
+        //                    var value1 = value.CategoryName;
+        //                    //availableCategory.push(name);
+        //                    availableCategory.push({ value1: label })
+        //                    //alert(value.CategoryName);
+        //                }));
+        //            },
+
+        //            error: function () {
+        //                alert("Error");
+        //            }
+
+        //        });
+        //    }
+        //});*@
+       
+
+        // SOME EVENT TRIGGER IT.
+        //$("#successBox").show();
+    });
+</script>

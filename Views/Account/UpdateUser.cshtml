@@ -1,0 +1,110 @@
+﻿@model ShoppingCart.Entity.UserAdminModel
+
+@{
+    ViewBag.Title = "UpdateUser";
+}
+<script src="~/Scripts/jquery-1.10.2.min.js" type="text/javascript"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+<script src="~/Scripts/AddToCart.js"></script>
+<ul class="breadcrumb">
+    <li><a href="http://plankter.co.incommon/home"><i class="fa fa-home"></i></a></li>
+    <li><a href="/Account/Index">Account</a></li>
+    <li><a href="javascript:void(0)">Edit Information</a></li>
+</ul>
+<div class="row">
+    <div id="content" class="col-sm-9">
+        <h1>My Account Information</h1>
+        <form action="/Account/UpdateUser" method="post" enctype="multipart/form-data" class="form-horizontal">
+            <fieldset>
+                <legend>Your Personal Details</legend>
+                @*<div class="form-group required">
+                    <label class="col-sm-2 control-label" for="input-firstname">First Name </label>
+                    <div class="col-sm-10">
+                        <input type="text" name="firstname" value="tyht" placeholder="First Name" id="input-firstname" class="form-control" />
+                    </div>
+                </div>*@
+                <div class="form-group required">
+                    <label class="col-sm-2 control-label" for="input-firstname">First Name</label>
+                    <div class="col-sm-10">
+                        @*<input type="text" name="firstname" value="" placeholder="First Name" id="input-firstname" class="form-control" />*@
+                        @Html.TextBoxFor(x => x.FirstName, new { @maxlength = "20", @class = "form-control", @id = "input-firstname", @placeholder = "First Name" })
+                    </div>
+                    <p class="text-danger" style="padding-left:162px;height:auto">@Html.ValidationMessageFor(x => x.FirstName)</p>
+                </div>
+                @*<div class="form-group required">
+                    <label class="col-sm-2 control-label" for="input-lastname">Last Name</label>
+                    <div class="col-sm-10">
+                        <input type="text" name="lastname" value="thrrth" placeholder="Last Name" id="input-lastname" class="form-control" />
+                    </div>
+                </div>*@
+                <div class="form-group required">
+                    <label class="col-sm-2 control-label" for="input-lastname">Last Name</label>
+                    <div class="col-sm-10">
+                        @*<input type="text" name="lastname" value="" placeholder="Last Name" id="input-lastname" class="form-control" />*@
+                        @Html.TextBoxFor(x => x.LastName, new { @maxlength = "20", @class = "form-control", @id = "input-firstname", @placeholder = "Last Name" })
+                    </div>
+                    <p class="text-danger" style="padding-left:162px;">@Html.ValidationMessageFor(x => x.LastName)</p>
+                </div>
+
+                @*<div class="form-group required">
+                    <label class="col-sm-2 control-label" for="input-email">E-Mail</label>
+                    <div class="col-sm-10">
+                        <input type="email" name="email" value="sfhfgs@dfs.gdf" placeholder="E-Mail" id="input-email" class="form-control" />
+                    </div>
+                </div>*@
+                <div class="form-group required">
+                    <label class="col-sm-2 control-label" for="input-email">E-Mail</label>
+                    <div class="col-sm-10">
+                        @*<input type="email" name="email" value="" placeholder="E-Mail" id="input-email" class="form-control" />*@
+                        @Html.TextBoxFor(x => x.Email, new { @maxlength = "50", @class = "form-control", @placeholder = "E-Mail", @id = "input-email",@readonly="readonly",@data_val = "false" })
+                    </div>
+                    <p class="text-danger" style="padding-left:162px;">@Html.ValidationMessageFor(x => x.Email)</p>
+                </div>
+
+                @*<div class="form-group required">
+                    <label class="col-sm-2 control-label" for="input-telephone">Telephone</label>
+                    <div class="col-sm-10">
+                        <input type="tel" name="telephone" value="4444444444" placeholder="Telephone" id="input-telephone" class="form-control" />
+                    </div>
+                </div>*@
+                <div class="form-group required">
+                    <label class="col-sm-2 control-label" for="input-telephone">Telephone</label>
+                    <div class="col-sm-10">
+                        @*<input type="tel" name="telephone" value="" placeholder="Telephone" id="input-telephone" class="form-control" />*@
+                        @Html.TextBoxFor(x => x.PhoneNumber, new { @minlength = "10", @maxlength = "10", @class = "form-control", @placeholder = "Telephone", @id = "input-telephone" })
+                    </div>
+                    <p class="text-danger" style="padding-left:162px;">@Html.ValidationMessageFor(x => x.PhoneNumber)</p>
+                </div>
+                @*<div class="form-group">
+                    <label class="col-sm-2 control-label" for="input-fax">Fax</label>
+                    <div class="col-sm-10">
+                        <input type="text" name="fax" value="" placeholder="Fax" id="input-fax" class="form-control" />
+                    </div>
+                </div>*@
+            </fieldset>
+            <div class="buttons clearfix">
+                <div class="pull-left"><a href="/Account/Index" class="btn btn-default">Back</a></div>
+                <div class="pull-right">
+                    <input type="submit" value="Continue" class="btn btn-primary" />
+                </div>
+            </div>
+            @Html.HiddenFor(x=>x.IsActive)
+            @Html.HiddenFor(x => x.Address1)
+            @Html.HiddenFor(x=>x.Address2)
+            @Html.HiddenFor(x=>x.Password)
+            @Html.HiddenFor(x => x.CountryId)
+            @Html.HiddenFor(x => x.StateId)
+            @Html.HiddenFor(x=>x.CityId)
+            @Html.HiddenFor(x => x.RoleId, new { @Value=2})
+        </form>
+    </div>
+    @*<column id="column-right" class="col-sm-3 hidden-xs">
+        <div class="list-group">
+            <a href="http://plankter.co.inaccount/account" class="list-group-item">My Account</a>
+            <a href="http://plankter.co.inaccount/edit" class="list-group-item">Edit Account</a> <a href="http://plankter.co.inaccount/password" class="list-group-item">Password</a>
+            <a href="http://plankter.co.inaccount/address" class="list-group-item">Address Books</a> <a href="http://plankter.co.inaccount/wishlist" class="list-group-item">Wish List</a> <a href="http://plankter.co.inaccount/order" class="list-group-item">Order History</a> <a href="http://plankter.co.inaccount/download" class="list-group-item">Downloads</a> <a href="http://plankter.co.inaccount/reward" class="list-group-item">Reward Points</a> <a href="http://plankter.co.inaccount/return" class="list-group-item">Returns</a> <a href="http://plankter.co.inaccount/transaction" class="list-group-item">Transactions</a> <a href="http://plankter.co.inaccount/newsletter" class="list-group-item">Newsletter</a><a href="http://plankter.co.inaccount/recurring" class="list-group-item">Recurring payments</a>
+            <a href="http://plankter.co.inaccount/logout" class="list-group-item">Logout</a>
+        </div>
+    </column>*@
+</div>

@@ -1,0 +1,19 @@
+﻿@model ShoppingCart.Entity.OrderHistoryModel
+@{
+    ViewBag.Title = "_UserAddress";
+}
+
+<table class="table table-bordered table-hover">
+    <thead>
+        <tr>
+            <td class="text-left">Payment Address</td>
+            <td class="text-left">Shipping Address</td>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td class="text-left">@Model.FirstName @Model.LastName<br>@Model.PermanantAddress<br>@Model.CityName @Model.PostCode<br>@Model.StateName<br>@Model.CountryName</td>
+            <td class="text-left">@Model.FirstName @Model.LastName<br>@Model.ShippingAddress<br>@Model.ShippingCityName @Model.ShippingPostCode<br>@Model.ShippingStateName<br>@Model.ShippingCountryName</td>
+        </tr>
+    </tbody>
+</table>

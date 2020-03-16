@@ -1,0 +1,34 @@
+﻿@model ShoppingCart.Entity.ProductModel
+@{
+    ViewBag.Title = "_FeaturedPartial";
+    var prdouctModel = @ViewData["ProductModel"];
+}
+
+<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+    <div class="product-thumb transition">
+        <div class="image"><a href="http://plankter.co.inproduct/product&amp;product_id=43" ><img src="https://demo.opencart.com/image/cache/catalog/demo/macbook_1-200x200.jpg" alt="MacBook" title="MacBook" class="img-responsive" /></a></div>
+        <div class="caption">
+            <h4><a href="http://plankter.co.inproduct/product&amp;product_id=43">MacBook</a></h4>
+            <p>
+                Intel Core 2 Duo processor
+                Powered by an Intel Core 2 Duo processor at speeds up to 2.1..
+            </p>
+            <p class="price">
+                $602.00 <span class="price-tax">Ex Tax: $500.00</span>
+            </p>
+        </div>
+        <div class="button-group">
+            <button type="button" onclick="cart.add('43');"><i class="fa fa-shopping-cart"></i> <span class="hidden-xs hidden-sm hidden-md">Add to Cart</span></button>
+            <button type="button" data-toggle="tooltip" title="Add to Wish List" onclick="wishlist.add('43');"><i class="fa fa-heart"></i></button>
+            <button type="button" data-toggle="tooltip" title="Compare this Product" onclick="compare.add('43');"><i class="fa fa-exchange"></i></button>
+        </div>
+    </div>
+</div>
+<script>
+    function GetRecentProduct()
+    {
+
+    }
+                
+
+</script>

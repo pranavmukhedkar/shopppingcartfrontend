@@ -1,0 +1,122 @@
+﻿@model ShoppingCart.Entity.UserAdminModel
+@{
+    ViewBag.Title = "DeliveryAddress";
+}
+
+<script src="~/Scripts/jquery-1.10.2.min.js" type="text/javascript"></script>
+@*<script src="~/Scripts/AddressCascad.js"></script>*@
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+<fieldset id="address" class="required">
+    <legend> Address</legend>
+    @*@using (Html.BeginForm())
+    {*@
+        <div class="form-group  required col-lg-6">
+            <label class="control-label" for="input-payment-address-1">First Name</label>
+            @*<input name="address_1" value="" placeholder="Address 1" id="input-payment-address-1" class="form-control" type="text">*@
+            @Html.TextBoxFor(x => x.FirstName, new { @placeholder = "First Name", @id = "input-firstname", @class = "form-control", @type = "text" })
+            <div class="text-danger">@Html.ValidationMessageFor(x => x.FirstName)</div>
+        </div>
+        <div class="form-group  required col-lg-6">
+            <label class="control-label" for="input-payment-address-1">Last Name</label>
+            @*<input name="address_1" value="" placeholder="Address 1" id="input-payment-address-1" class="form-control" type="text">*@
+            @Html.TextBoxFor(x => x.LastName, new { @placeholder = "Last Name", @id = "input-lastname", @class = "form-control", @type = "text" })
+            <div class="text-danger">@Html.ValidationMessageFor(x => x.LastName)</div>
+        </div>
+
+        <div class="form-group  required col-lg-6">
+            <label class="control-label" for="input-payment-address-1">Address 1</label>
+            @*<input name="address_1" value="" placeholder="Address 1" id="input-payment-address-1" class="form-control" type="text">*@
+            @Html.TextBoxFor(x => x.Address1, new { @placeholder = "Address 1", @id = "input-payment-address-1", @class = "form-control", @type = "text" })
+            <div class="text-danger">@Html.ValidationMessageFor(x => x.Address1)</div>
+        </div>
+        <div class="form-group col-lg-6">
+            <label class="control-label" for="input-payment-address-2">Address 2</label>
+            @*<input name="address_2" value="" placeholder="Address 2" id="input-payment-address-2" class="form-control" type="text">*@
+            @Html.TextBoxFor(x => x.Address2, new { @placeholder = "Address 2", @id = "input-payment-address-2", @class = "form-control", @type = "text" })
+            <div class="text-danger">@Html.ValidationMessageFor(x => x.Address2)</div>
+        </div>
+        <div class="form-group required col-lg-4">
+            <label class="control-label" for="input-payment-country">Country</label>
+            @*<input name="city" value="" placeholder="City" id="input-payment-city" class="form-control" type="text">*@
+            @Html.DropDownListFor(x => x.CountryId, new SelectList((System.Collections.IEnumerable)ViewData["CountryList"], "CountryId", "CountryName"), "Select Country", new { @id = "ddlCountry", @class = "form-control" })
+            @*@Html.DropDownListFor(x => x.CountryId, new List<SelectListItem>(), "Select Country", new { @id = "ddlCountry", @class = "form-control" })*@
+            <div class="text-danger">@Html.ValidationMessageFor(x => x.CountryId)</div>
+        </div>
+        <div class="form-group required col-lg-4">
+            <label class="control-label" for="input-payment-state">State</label>
+            @Html.DropDownListFor(x => x.StateId, new SelectList((System.Collections.IEnumerable)ViewData["StateList"], "StateId", "StateName"), "Select State", new { @id = "ddlState", @class = "form-control" })
+            @*@Html.DropDownListFor(x => x.StateId, new List<SelectListItem>(), "Select State", new { @id = "ddlState", @class = "form-control" })*@
+            <div class="text-danger">@Html.ValidationMessageFor(x => x.StateId)</div>
+        </div>
+        <div class="form-group required col-lg-4">
+            <label class="control-label" for="input-payment-city">City</label>
+            @Html.DropDownListFor(x => x.CityId, new SelectList((System.Collections.IEnumerable)ViewData["CityList"], "CityId", "CityName"), "Select City", new { @id = "ddlCity", @class = "form-control" })
+            @*@Html.DropDownListFor(x => x.CityId, new List<SelectListItem>(), "Select City", new { @id = "ddlCity", @class = "form-control" })*@
+            <div class="text-danger">@Html.ValidationMessageFor(x => x.CityId)</div>
+        </div>
+        <div class="form-group required col-lg-6">
+            <label class="control-label" for="input-payment-postcode">Post Code</label>
+            @*<input name="postcode" value="" placeholder="Post Code" id="input-payment-postcode" class="form-control" type="text">*@
+            @Html.TextBoxFor(x => x.Zip, new { placeholder = "Post Code", @id = "input-payment-postcode", @class = "form-control", @type = "text" })
+            <div class="text-danger">@Html.ValidationMessageFor(x => x.Zip)</div>
+            @*<div class="text-danger">Postcode must be between 2 and 10 characters!</div>*@
+        </div>
+    <div class="form-group  required col-lg-6">
+        <label class="control-label" for="input-payment-address-1">Phone</label>
+        @*<input name="address_1" value="" placeholder="Address 1" id="input-payment-address-1" class="form-control" type="text">*@
+        @Html.TextBoxFor(x => x.PhoneNumber, new { @placeholder = "Phone", @id = "Phone", @class = "form-control", @type = "text" })
+        <div class="text-danger">@Html.ValidationMessageFor(x => x.PhoneNumber)</div>
+    </div>
+    @*  }*@
+</fieldset>
+<br />
+
+<script>
+    $("#ddlCountry").change(function () {
+        debugger;
+        var countryId = $("#ddlCountry").val();
+        $.ajax({
+            type: "POST",
+            url: "/Register/GetStates?id=" + countryId,
+            contentType: "application/json; charset=utf-8",
+            datatype: "json",
+            success: function (data) {
+
+                $("#ddlState").find("option").remove();
+                $("#ddlState").append("<option selected=selected value='0'>Select State</option>");
+                $.each(data, function (index, value) {
+
+                    $("#ddlState").append('<option value="' + value.StateId + '">' + value.StateName + '</option>');
+                });
+            },
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                alert("error " + XMLHttpRequest + " xhr " + textStatus + " status " + errorThrown);
+            },
+
+        });
+    });
+
+    $("#ddlState").change(function () {
+        var stateId = $("#ddlState").val();
+        $.ajax({
+
+            type: "POST",
+            url: "/Register/GetCity?id=" + stateId,
+            contentType: "application/json; charset=utf-8",
+            datatype: "json",
+            success: function (data) {
+
+                $("#ddlCity").find("option").remove();
+                $("#ddlCity").append("<option selected=selected value='0'>Select City</option>");
+                $.each(data, function (index, value) {
+
+                    $("#ddlCity").append('<option value="' + value.CityId + '">' + value.CityName + '</option>');
+                });
+
+            }
+
+        });
+
+    });
+</script>

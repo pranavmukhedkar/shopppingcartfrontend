@@ -1,0 +1,36 @@
+﻿@model List<ShoppingCart.Entity.CategoryModel>
+@{ 
+    var count = 0;
+}
+
+<!--JQuery file for getting product onmouseover evenr-->
+<script src="https://plankteradmin.azurewebsites.net/Scripts/GetProduct.js"></script>
+<style>
+    .CategoryBar
+    {
+        width:120px;
+        text-align:center;
+    }
+</style>
+
+<div class="collapse navbar-collapse navbar-ex1-collapse">
+    <ul class="nav navbar-nav">
+        @foreach (var category in @Model)
+            {
+                //counter for displaying limited Category on nav bar.
+                if (count < 9)
+                {
+            <li class="dropdown">
+                <a href="../Category/Index?id=@category.CategoryId"  class="CategoryBar"><b>@category.CategoryName</b>  </a>
+               
+            </li>
+            }
+            else
+            {
+                break;
+            }
+            count++;
+        }
+    </ul>
+</div>
+

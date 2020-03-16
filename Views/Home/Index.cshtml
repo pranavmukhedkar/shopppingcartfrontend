@@ -1,0 +1,56 @@
+﻿@model List<ShoppingCart.Entity.ProductModel>
+
+@{
+    ViewBag.Title = "Home Page";
+
+}
+<script src="~/Scripts/AddToCart.js"></script>
+@*<div class="container">
+        <nav id="menu" class="navbar">
+            @Html.Partial("_CategoryPartial")
+        </nav>
+    </div>*@
+
+           <div class="row">
+            <div id="content" class="col-sm-12">
+
+                <h3>Featured</h3>
+                <div class="row product-layout">
+                    @foreach (var product in Model)
+                    {
+                        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+
+                            <div class="product-thumb transition">
+                                <div class="image"><a href="../Product/Index?id=@product.ProductId"><img src="http://plankter.co.in/Uploded_Images/Product/@product.ProductImage" alt=@product.ProductName title=@product.ProductName class="img-responsive" style="height:228px;" /></a></div>
+                                <div class="caption">
+                                    <h4><a href="../Product/Index?id=@product.ProductId">@product.ProductName</a></h4>
+                                    @if (product.ProductDescription.Length > 100)
+                                    {
+                                        <p>
+                                            @product.ProductDescription.Substring(0, Math.Min(product.ProductDescription.Length, 100))..
+                                        </p>
+                                    }
+                                    else
+                                    {
+                                        <p>
+                                            @product.ProductDescription.Substring(0, Math.Min(product.ProductDescription.Length, 100))
+                                        </p>
+                                    }
+                                    <p class="price">
+                                        Rs.@product.Price
+                                    </p>
+                                </div>
+                                <div class="button-group">
+                                    <button type="button" onclick="AddToCart(@product.ProductId,1);"><i class="fa fa-shopping-cart"></i> <span class="hidden-xs hidden-sm hidden-md">Add to Cart</span></button>
+                                    <button type="button" data-toggle="tooltip" title="Add to Wish List" onclick="wishlist.add('43');"><i class="fa fa-heart"></i></button>
+                                    <button type="button" data-toggle="tooltip" title="Compare this Product" onclick="compare.add('43');"><i class="fa fa-exchange"></i></button>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    }
+                </div>
+
+            </div>
+        </div>
